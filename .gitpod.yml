@@ -1,5 +1,5 @@
 # List the start up tasks. Learn more https://www.gitpod.io/docs/config-start-tasks/
 tasks:
-  - init: wget https://dot.net/v1/dotnet-install.sh; chmod +x ./dotnet-install.sh # runs during prebuild
-    command: ./dotnet-install.sh --version latest ; /home/gitpod/.dotnet/dotnet run single
+  - init: wget https://dot.net/v1/dotnet-install.sh && chmod +x ./dotnet-install.sh # runs during prebuild
+    command: ./dotnet-install.sh --version latest && /home/gitpod/.dotnet/dotnet run single
 

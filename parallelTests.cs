@@ -8,7 +8,7 @@
     using OpenQA.Selenium.Firefox;
     using OpenQA.Selenium.Remote;
     using OpenQA.Selenium.Support.UI;
-​
+    
     namespace csharp_selenium_lambdatest
     {
         class ParallelTests
@@ -20,7 +20,7 @@
                 Thread combination3 = new Thread(obj => sampleTestCase("Firefox", "latest", "MacOS Monterey"));
                 Thread combination4 = new Thread(obj => sampleTestCase("Safari", "latest", "MacOS Big Sur"));
                 Thread combination5 = new Thread(obj => sampleTestCase("Edge", "latest", "Windows 10"));
-​
+
                 //Executing the methods
                 combination1.Start();
                 combination2.Start();
@@ -33,7 +33,7 @@
                 combination4.Join();
                 combination5.Join();
             }
-​
+
             static void sampleTestCase(String browser, String browser_version, String platform)
             {
                 // Update your lambdatest credentials
@@ -50,6 +50,8 @@
                         safariltOptions.Add("accessKey", LT_ACCESS_KEY);
                         safariltOptions.Add("platformName", platform);
                         safariltOptions.Add("project", "Demo LT");
+                        safariltOptions.Add("build", "C# Build");
+                        safariltOptions.Add("sessionName", "C# Parallel Test");
                         safariltOptions.Add("w3c", true);
                         safariltOptions.Add("plugin", "c#-c#");
                         safari.AddAdditionalOption("LT:Options", safariltOptions);
@@ -63,6 +65,8 @@
                         chromeltOptions.Add("accessKey", LT_ACCESS_KEY);
                         chromeltOptions.Add("platformName", platform);
                         chromeltOptions.Add("project", "Demo LT");
+                        chromeltOptions.Add("build", "C# Build");
+                        chromeltOptions.Add("sessionName", "C# Parallel Test");
                         chromeltOptions.Add("w3c", true);
                         chromeltOptions.Add("plugin", "c#-c#");
                         chrome.AddAdditionalOption("LT:Options", chromeltOptions);
@@ -76,6 +80,8 @@
                         firefoxltOptions.Add("accessKey", LT_ACCESS_KEY);
                         firefoxltOptions.Add("platformName", platform);
                         firefoxltOptions.Add("project", "Demo LT");
+                        firefoxltOptions.Add("build", "C# Build");
+                        firefoxltOptions.Add("sessionName", "C# Parallel Test");
                         firefoxltOptions.Add("w3c", true);
                         firefoxltOptions.Add("plugin", "c#-c#");
                         firefox.AddAdditionalOption("LT:Options", firefoxltOptions);
@@ -89,6 +95,8 @@
                         edgeltOptions.Add("accessKey", LT_ACCESS_KEY);
                         edgeltOptions.Add("platformName", platform);
                         edgeltOptions.Add("project", "Demo LT");
+                        edgeltOptions.Add("build", "C# Build");
+                        edgeltOptions.Add("sessionName", "C# Parallel Test");
                         edgeltOptions.Add("w3c", true);
                         edgeltOptions.Add("plugin", "c#-c#");
                         edge.AddAdditionalOption("LT:Options", edgeltOptions);
@@ -102,6 +110,8 @@
                         ltOptions.Add("accessKey", LT_ACCESS_KEY);
                         ltOptions.Add("platformName", platform);
                         ltOptions.Add("project", "Demo LT");
+                        ltOptions.Add("build", "C# Build");
+                        ltOptions.Add("sessionName", "C# Parallel Test");
                         ltOptions.Add("w3c", true);
                         ltOptions.Add("plugin", "c#-c#");
                         capabilities.AddAdditionalOption("LT:Options", ltOptions);
@@ -117,23 +127,21 @@
                 {
                       Console.WriteLine("Navigating to todos app.");
                     driver.Navigate().GoToUrl("https://lambdatest.github.io/sample-todo-app/");
-​
+
                     driver.FindElement(By.Name("li4")).Click();
                     Console.WriteLine("Clicking Checkbox");
                     driver.FindElement(By.Name("li5")).Click();
-​
-​
+
                     // If both clicks worked, then te following List should have length 2
                     IList<IWebElement> elems = driver.FindElements(By.ClassName("done-true"));
                     // so we'll assert that this is correct.
                     if ( elems.Count != 2)
                     throw new Exception();
-​
+                    
                     Console.WriteLine("Entering Text");
                     driver.FindElement(By.Id("sampletodotext")).SendKeys("Yey, Let's add it to list");
                     driver.FindElement(By.Id("addbutton")).Click();
-​
-​
+
                     // lets also assert that the new todo we added is in the list
                     string spanText = driver.FindElement(By.XPath("/html/body/div/div/div/ul/li[6]/span")).Text;
                   if (!"Yey, Let's add it to list".Equals(spanText))
