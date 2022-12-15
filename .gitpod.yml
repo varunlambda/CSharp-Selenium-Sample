@@ -1,9 +1,5 @@
 # List the start up tasks. Learn more https://www.gitpod.io/docs/config-start-tasks/
 tasks:
-  - init: ./dotnet-install.sh --version latest # runs during prebuild
-    command: echo 'start script'
+  - init: wget https://dot.net/v1/dotnet-install.sh; chmod +x ./dotnet-install.sh # runs during prebuild
+    command: ./dotnet-install.sh --version latest ; /home/gitpod/.dotnet/dotnet run single
 
-# List the ports to expose. Learn more https://www.gitpod.io/docs/config-ports/
-ports:
-  - port: 3000
-    onOpen: open-preview

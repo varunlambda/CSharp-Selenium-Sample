@@ -94,44 +94,33 @@ The capabilities object in the above code are defined as:
 **Note:** You can generate capabilities for your test requirements with the help of **[Desired Capabilitiy Generator](https://www.lambdatest.com/capabilities-generator/?utm_source=github&utm_medium=repo&utm_campaign=CSharp-Selenium)**.
 
 ### Executing the Test
-
-**Step 5:** Build the solution by clicking on **Build > Build Solution**.
-
-**Step 6:** As shown below click on Test Explorer on your MS Visual Studio:
-
-<img height ="300" src="https://user-images.githubusercontent.com/70570645/171259137-307144a3-e0b0-4b45-865b-38f69b2b6776.png"/>
-
-**Step 7:** Click on **Run** from the Test Explorer to run the sample test as shown below:
-
-<img height ="300" src="https://user-images.githubusercontent.com/70570645/171259718-1828f238-bec0-483a-954a-d7153958a6d0.png"/>
+* Single Test
+```bash
+dotnet run single
+```
+* Parallel Tests
+```bash
+dotnet run parallel
+```
 
 ### Executing in Linux/macOS
 
- * Install NuGet Packages for the project.
+ * Install dotnet runtime from https://dot.net/v1/dotnet-install.sh
  
-```
-cd Packages
-nuget.exe install ..\NUnitSelenium\packages.config
-```
+ ```bash
+  chmod +x ./dotnet-install.sh;
+  ./dotnet-install.sh --version latest;
 
- * Clean and rebuild project.
- 
-```csharp
-nmake clean build
-```
+ ```
+
 Your results would be displayed on the test console and on the LambdaTest Automation Dashboard.
 
-## Running Your Parallel Tests Using NUnit Testing Framework
-
-
- **Executing Parallel tests in Windows**
-
- To run parallel tests, go to **Test Explorer** on Visual Studio as mentioned above and click **Run All** tests to execute the tests. 
+## Running Your Parallel Tests Using dotnet runtime 
  
- **Executing  parallel tests in Linux/MacOS**
+ **Executing  parallel tests in Windows/Linux/MacOS**
  
-```
-nmake test OR nmake all
+```bash
+dotnet run parallel
 ```
 Your results would be displayed on the test console and on the LambdaTest Automation Dashboard.
 
@@ -139,7 +128,7 @@ Your results would be displayed on the test console and on the LambdaTest Automa
 
 You can test your locally hosted or privately hosted projects with LambdaTest Selenium grid using LambdaTest Tunnel. All you would have to do is set up an SSH tunnel using tunnel and pass toggle `tunnel = True` via desired capabilities. LambdaTest Tunnel establishes a secure SSH protocol based tunnel that allows you in testing your locally hosted or privately hosted pages, even before they are live.
 
-Refer our [LambdaTest Tunnel documentation](https://www.lambdatest.com/support/docs/testing-locally-hosted-pages/?utm_source=github&utm_medium=repo&utm_campaign=CSharp-NUnit-Selenium) for more information.
+Refer our [LambdaTest Tunnel documentation](https://www.lambdatest.com/support/docs/testing-locally-hosted-pages/?utm_source=github&utm_medium=repo&utm_campaign=CSharp-Selenium) for more information.
 
 Here’s how you can establish LambdaTest Tunnel.
 
