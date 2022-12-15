@@ -15,9 +15,9 @@ namespace csharp_selenium_lambdatest
         public static void execute()
         {
             Thread combination1 = new Thread(obj => sampleTestCase("Safari", "latest", "MacOS Ventura"));
-            Thread combination2 = new Thread(obj => sampleTestCase("Chrome", "latest", "Windows 10");
-            Thread combination3 = new Thread(obj => sampleTestCase("Firefox", "latest", "MacOS Monterey");
-            Thread combination4 = new Thread(obj => sampleTestCase("Safari", "latest", "MacOS Big Sur");
+            Thread combination2 = new Thread(obj => sampleTestCase("Chrome", "latest", "Windows 10"));
+            Thread combination3 = new Thread(obj => sampleTestCase("Firefox", "latest", "MacOS Monterey"));
+            Thread combination4 = new Thread(obj => sampleTestCase("Safari", "latest", "MacOS Big Sur"));
             Thread combination5 = new Thread(obj => sampleTestCase("Edge", "latest", "Windows 10"));
 
             //Executing the methods
@@ -36,8 +36,8 @@ namespace csharp_selenium_lambdatest
         static void sampleTestCase(String browser, String browser_version, String platform)
         {
             // Update your lambdatest credentials
-            String LT_USERNAME = GetEnvironmentVariable(LT_USERNAME);
-            String LT_ACCESS_KEY = GetEnvironmentVariable(LT_ACCESS_KEY);
+            String LT_USERNAME = GetEnvironmentVariable("LT_USERNAME");
+            String LT_ACCESS_KEY = GetEnvironmentVariable("LT_ACCESS_KEY");
             switch (browser)
             {
                 case "Safari": 
@@ -51,12 +51,12 @@ namespace csharp_selenium_lambdatest
                     ltOptions.Add("project", "Demo LT");
                     ltOptions.Add("w3c", true);
                     ltOptions.Add("plugin", "c#-c#");
-                    capabilities.AddAdditionalOption('LT:Options', ltOptions);
+                    capabilities.AddAdditionalOption("LT:Options", ltOptions);
                     executetestwithcaps(capabilities);
                     break;
                 case "Chrome" : //If browser is Chrome, following capabilities will be passed to 'executetestwithcaps' function
                     ChromeOptions capabilities = new ChromeOptions();
-                   capabilities.BrowserVersion = browser_version;
+                    capabilities.BrowserVersion = browser_version;
                     Dictionary<string, object> ltOptions = new Dictionary<string, object>();
                     ltOptions.Add("username",LT_USERNAME );
                     ltOptions.Add("accessKey", LT_ACCESS_KEY);
@@ -64,7 +64,7 @@ namespace csharp_selenium_lambdatest
                     ltOptions.Add("project", "Demo LT");
                     ltOptions.Add("w3c", true);
                     ltOptions.Add("plugin", "c#-c#");
-                    capabilities.AddAdditionalOption('LT:Options', ltOptions);
+                    capabilities.AddAdditionalOption("LT:Options", ltOptions);
                     executetestwithcaps(capabilities);
                     break;
                 case "Firefox": //If browser is Firefox, following capabilities will be passed to 'executetestwithcaps' function
@@ -77,7 +77,7 @@ namespace csharp_selenium_lambdatest
                     ltOptions.Add("project", "Demo LT");
                     ltOptions.Add("w3c", true);
                     ltOptions.Add("plugin", "c#-c#");
-                    capabilities.AddAdditionalOption('LT:Options', ltOptions);
+                    capabilities.AddAdditionalOption("LT:Options", ltOptions);
                     executetestwithcaps(capabilities);
                     break;
                 case "Edge": //If browser is Edge, following capabilities will be passed to 'executetestwithcaps' function
@@ -90,7 +90,7 @@ namespace csharp_selenium_lambdatest
                     ltOptions.Add("project", "Demo LT");
                     ltOptions.Add("w3c", true);
                     ltOptions.Add("plugin", "c#-c#");
-                    capabilities.AddAdditionalOption('LT:Options', ltOptions);
+                    capabilities.AddAdditionalOption("LT:Options", ltOptions);
                     executetestwithcaps(capabilities);
                     break;
                 default: //If browser is IE, following capabilities will be passed to 'executetestwithcaps' function
@@ -103,7 +103,7 @@ namespace csharp_selenium_lambdatest
                     ltOptions.Add("project", "Demo LT");
                     ltOptions.Add("w3c", true);
                     ltOptions.Add("plugin", "c#-c#");
-                    capabilities.AddAdditionalOption('LT:Options', ltOptions);
+                    capabilities.AddAdditionalOption("LT:Options", ltOptions);
                     executetestwithcaps(capabilities);
                     break;
             }
@@ -115,27 +115,31 @@ namespace csharp_selenium_lambdatest
              try
             {
                   Console.WriteLine("Navigating to todos app.");
-                driver.Value.Navigate().GoToUrl("https://lambdatest.github.io/sample-todo-app/");
+                driver.Navigate().GoToUrl("https://lambdatest.github.io/sample-todo-app/");
 
-                driver.Value.FindElement(By.Name("li4")).Click();
+                driver.FindElement(By.Name("li4")).Click();
                 Console.WriteLine("Clicking Checkbox");
-                driver.Value.FindElement(By.Name("li5")).Click();
+                driver.FindElement(By.Name("li5")).Click();
 
 
                 // If both clicks worked, then te following List should have length 2
-                IList<IWebElement> elems = driver.Value.FindElements(By.ClassName("done-true"));
+                IList<IWebElement> elems = driver.FindElements(By.ClassName("done-true"));
                 // so we'll assert that this is correct.
-                Assert.AreEqual(2, elems.Count);
+                if ( elems.Count != 2);
+                throw new Exception();
 
                 Console.WriteLine("Entering Text");
-                driver.Value.FindElement(By.Id("sampletodotext")).SendKeys("Yey, Let's add it to list");
-                driver.Value.FindElement(By.Id("addbutton")).Click();
+                driver.FindElement(By.Id("sampletodotext")).SendKeys("Yey, Let's add it to list");
+                driver.FindElement(By.Id("addbutton")).Click();
 
 
                 // lets also assert that the new todo we added is in the list
-                string spanText = driver.Value.FindElement(By.XPath("/html/body/div/div/div/ul/li[6]/span")).Text;
-                Assert.AreEqual("Yey, Let's add it to list", spanText);
+                string spanText = driver.FindElement(By.XPath("/html/body/div/div/div/ul/li[6]/span")).Text;
+                if ("Yey, Let's add it to list" != spanText);
+                throw new Exception();
+               
                 ((IJavaScriptExecutor)driver).ExecuteScript("lambda-status=passed");
+               
             }
             catch
             {
@@ -145,4 +149,4 @@ namespace csharp_selenium_lambdatest
             driver.Quit();
             }
     }
-}
+}}
